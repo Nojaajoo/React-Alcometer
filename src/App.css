@@ -27,14 +27,14 @@ form {
 .input-group-text,
 .custom-select {
   color: lime;
-  background-color: deeppink;
+  background-color: rgb(255, 102, 184);
 }
 
 .form-control,
 .form-control::placeholder,
 .form-control:focus {
   color: lime;
-  background-color: deeppink;
+  background-color: rgb(255, 102, 184);
 }
 
 
@@ -50,7 +50,7 @@ footer {
 }
 
 .btn {
-  background-color: deeppink;
+  background-color: rgb(255, 102, 184);
   color: lime;
   font-weight: bold;
 }

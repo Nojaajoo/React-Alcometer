@@ -1,27 +1,49 @@
 import React, {useState} from "react";
 import './App.css';
 
-export default function Alcometer() {
+function Alcometer() {
+  const [weight, setWeight] = useState("");
+  const [bottles, setBottles] = useState(1);
+  const [time, setTime] = useState(0.5);
+  const [gender, setGender] = useState("female");
+  const [drunk, setDrunk] = useState(0);
+
+  function Calculate(e) {
+    e.preventDefault();
+    const litres = bottles * 0.33;
+    const grams = litres * 8 * 4.5;
+    const burning = weight / 10;
+    const gramsLeft = grams - (burning * time);
+    let result = 0;
+    if (gender === "female") {
+      result = gramsLeft / (weight * 0.6);
+    } else {
+      result = gramsLeft / (weight * 0.7);
+    }
+    setDrunk(result);
+  }
   
   return (
     <>
-    <div class="container-fluid">
-      <header class="row">
-      <h2 class="col-12 text-center display-4">Blood Alcohol Level Calculator or Alcometer</h2>
+    <div className="container-fluid">
+      <header className="row">
+      <h2 className="col-12 text-center display-4">Blood Alcohol Level Calculator or Alcometer</h2>
       </header>
 
-      <main class="row">
-          <div class="col-12">
-            <form>
+      <main className="row">
+          <div className="col-12">
+            <form onSubmit={Calculate}>
 
-              <div class="input-group mt-4">
-                <label class="input-group-text" for="wei">Weight</label>
-                <input class="form-control" type="number" placeholder="Your weight (kg)" id="wei"/>
+              <div className="input-group mt-4">
+                <label className="input-group-text" htmlFor="wei">Weight</label>
+                <input value={weight} onChange={e => setWeight(e.target.value)}
+                 className="form-control" type="number" placeholder="Your weight (kg)" id="wei"/>
               </div>
 
-              <div class="input-group mt-4">
-                <label class="input-group-text" for="botl">Bottles</label>
-                <select class="custom-select" name="bottles" id="botl">
+              <div className="input-group mt-4">
+                <label className="input-group-text" htmlFor="botl">Bottles</label>
+                <select value={bottles} onChange={e => setBottles(e.target.value)}
+                 className="custom-select" name="bottles" id="botl">
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
@@ -34,10 +56,11 @@ export default function Alcometer() {
                 </select>
               </div>
               
-              <div class="form-group">
-                <div class="input-group mt-4">
-                  <label class="input-group-text" for="tim">Time</label>
-                  <select class="custom-select" name="time" id="tim">
+              <div className="form-group">
+                <div className="input-group mt-4">
+                  <label className="input-group-text" htmlFor="tim">Time</label>
+                  <select value={time} onChange={e => setTime(e.target.value)}
+                   className="custom-select" name="time" id="tim">
                     <option value="0.5">30 min</option>
                     <option value="1">1 hour</option>
                     <option value="1.5">1 hour 30 min</option>
@@ -52,36 +75,39 @@ export default function Alcometer() {
                 </div>
               </div>
 
-              <div class="form-group">
+              <div className="form-group">
                 <label>Gender</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gender" value="female" id="gf" defaultChecked/>
-                  <label class="form-check-label" for="gf">Female</label>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="gender"
+                   value="female" onChange={e => setGender(e.target.value)} id="gf" defaultChecked/>
+                  <label className="form-check-label" htmlFor="gf">Female</label>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gender" value="male" id="gm"/>
-                  <label class="form-check-label" for="gm">Male</label>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="gender"
+                   value="male" onChange={e => setGender(e.target.value)} id="gm"/>
+                  <label className="form-check-label" htmlFor="gm">Male</label>
                 </div>
               </div>
 
-              <div class="form-group text-center mb-3">
-                <label class="p-4">There is this much drunk in you:</label>
-                <output>1234</output>
+              <div className="form-group text-center mb-3">
+                <label className="p-4">There is this much drunk in you:</label>
+                <output><p><strong>{drunk.toFixed(2)}‰</strong></p></output>
               </div>
-              <div class="col-12 mb-4 text-center">
-                <button class="btn">Calculate</button>
+              
+              <div className="col-12 mb-4 text-center">
+                <button className="btn">Calculate</button>
               </div>
             </form>
           </div>
       </main>
 
-      <footer class="row">
-        <p class="col-12 col-md-6">Joona Oja</p>
-        <p class="col-12 col-md-6">TIK20SP</p>
+      <footer className="row">
+        <p className="col-12 col-md-6">Joona Oja</p>
+        <p className="col-12 col-md-6">TIK20SP</p>
       </footer>
     </div>
-    
-    
     </>
   )
 }
+
+export default Alcometer;
